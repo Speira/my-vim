@@ -1,0 +1,20 @@
+extends html
+snippet i
+	<% if( ${1:cond} ){ %>
+		$0
+	<% } %>
+snippet ie
+	<% if( ${1:cond} ){%>
+		$2
+	<% }else{ %>
+		$0
+	<% } %>
+snippet ///
+	<% /* $0 */ %>
+snippet //
+	<% // %>
+snippet ==
+	<%= ${1:code} %>$0
+snippet %
+	<% ${1} %>$0
+
