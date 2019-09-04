@@ -162,27 +162,8 @@ snippet obj
 		return new F();
 	}
 
-# Define single property
-snippet prop
-	Object.defineProperty(
-		${1:object},
-		"${2:property}",
-		{
-			get : function $1_$2_getter() {
-				// getter code
-			},
-			set : function $1_$2_setter(value) {
-				// setter code
-			},
-			value        : ${3:value},
-			writeable    : ${4:boolean},
-			enumerable   : ${5:boolean},
-			configurable : ${0:boolean}
-		}
-	);
+
 #React snippet
-snippet cs
-	var cx = React.addons.classSet;
 snippet cdm
 	componentDidMount() {
 		${1}
@@ -215,8 +196,6 @@ snippet cx
 	cx({
 		${1}: ${2}
 	});
-snippet fup
-	forceUpdate(${1:callback});
 snippet gdp
 	getDefaultProps() {
 		return {
@@ -279,15 +258,114 @@ snippet scss
 	}
 
 snippet render
-	render() {
-		return (
-			${1:<div />}
-		);
-	}
-snippet sst
-	setState({
-		${1}: ${2}
-	});
-snippet trp
-	transferPropsTo(${1});
+	return (
+		<${1:div}>
+			${2}
+		</${3:$1}>
+	);
+snippet cont
+	import React from 'react'
 
+	import Component from 'components/Component'
+	
+	/**
+	 * ${3:$1}
+	 * @component
+	 * 
+	 */
+	function ${1:Elem} (props) {
+		return(
+			<Component>
+
+			</Component>
+		)
+	}
+
+	export default $1
+snippet comp
+	import React from 'react'
+	// import PropTypes from 'prop-types'
+
+	import Base from './style'
+	
+	/**
+	 * ${3:$1}
+	 * @component
+	 * 
+	 */
+	function ${1:Elem} (props) {
+		return(
+			<Base {...props}/>
+		)
+	}
+	${2: $1}.defaultProps = {
+	
+	}
+	$2.propTypes = {
+	
+	}
+	
+	export default $1
+snippet comps
+	import styled from 'styled-components';
+	import constants from 'utils/constants';
+
+	const { colors } = constants;
+	
+	/**
+	 * $1
+	 * @component 
+	 *
+	*/
+	const ${1:elem} = styled.div
+	  display: grid;
+	  grid-template-columns: 1fr 5fr;
+	  min-height: 100vh;
+	  min-width: 100vw;
+	;
+	
+	export default $1;
+snippet context 
+	import React from 'react';
+
+	const ${1:elem}Context = React.createContext();
+
+	/**
+	 * $1Provider
+	 * @component
+	 * @context
+	 *
+	 */
+	function $1Provider(props) {
+		const value = {
+			
+		};
+
+		return <$1Context.Provider {...props} value={value} />;
+	}
+	
+	/**
+	 * use$1
+	 * @return context
+	 *
+	 */
+	export const use$1 = () => {
+		const context = React.useContext($1Context);
+		if (!context)
+			throw new Error('$1Context must be called in $1Provider');
+		return context;
+	};
+	export default $1Provider;
+snippet test 
+	import React from 'react';
+	import { shallow } from 'enzyme';
+
+	import ${1:Component} from './index';
+
+	const wrapper = shallow(<$1 />);
+
+	describe('render', () => {
+		it('$1 must be rendered', () => {
+			expect(wrapper).toBeDefined();
+		});
+	});
