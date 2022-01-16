@@ -59,16 +59,13 @@ set list listchars=tab:»·,trail:·
 
 noremap <F2>		:tabe ~/.vim/bundle/snippets/snippets/
 
-noremap <C-h> :GundoToggle<CR>
-
-noremap <C-w>				:q<CR>
 noremap <S-Tab>				:tabprevious<CR>
 noremap <Tab>				:tabnext<CR>
 noremap <C-r>				:NERDTreeToggle<CR>:e<CR>:NERDTreeToggle<CR>
-noremap <C-k>				:!(make)<CR>
 noremap <F5>				:NERDTreeToggle<CR>
 noremap <F8>				:TagbarToggle<CR>
 noremap <F9>				:PrettierAsync<CR>
+noremap <leader>D :call ReactGotoDef()<CR>
 
 inoremap <C-k>				<Esc>:help key-notation<CR>
 

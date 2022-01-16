@@ -95,6 +95,8 @@ snippet gett
 snippet cl
 	console.log(${0});
 # return
+snippet cw
+	console.warn(${0});
 snippet ret
 	return ${0:result}
 # for (property in object ) { ... }
@@ -164,34 +166,6 @@ snippet obj
 
 
 #React snippet
-snippet cdm
-	componentDidMount() {
-		${1}
-	}
-snippet cdu
-	componentDidUpdate(prevProps, prevState) {
-		${1}
-	}
-snippet cwm
-	componentWillMount() {
-		${1}
-	}
-snippet cwr
-	componentWillReceiveProps(nextProps) {
-		${1}
-	}
-snippet cwum
-	componentWillUnmount() {
-		${1}
-	}
-snippet cwu
-	componentWillUpdate(nextProps, nextState) {
-		${1}
-	}
-snippet scu
-	shouldComponentUpdate(nextProps, nextState) {
-		${1}
-	}
 snippet cx
 	cx({
 		${1}: ${2}
@@ -308,24 +282,23 @@ snippet comp
 	export default $1
 snippet comps
 	import styled from 'styled-components';
-	import constants from 'utils/constants';
-
-	const { colors } = constants;
+	import { withTheme } from 'contexts/ThemeContext';
 	
 	/**
 	 * $1
 	 * @component 
 	 *
 	*/
-	const ${1:elem} = styled.div
+	const ${1:elem} = styled.div ${2:TTT}
 	  display: grid;
 	  grid-template-columns: 1fr 5fr;
 	  min-height: 100vh;
 	  min-width: 100vw;
-	;
+	  color: ${({themeColors}) => themeColors.primary};
+	${3:$2} ;
 	
-	export default $1;
-snippet context 
+	export default withTheme($1);
+snippet context
 	import React from 'react';
 
 	const ${1:elem}Context = React.createContext();
