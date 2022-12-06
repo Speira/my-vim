@@ -258,9 +258,15 @@ snippet cont
 	export default $1
 snippet comp
 	import React from 'react'
-	// import PropTypes from 'prop-types'
-
-	import Base from './style'
+	import PropTypes from 'prop-types'
+	import styled from 'styled-components'
+	
+	/**
+	 * Styled${8:$1}
+	 * @component
+	 */
+	const Styled${5:$1} = styled.div
+	  width: 100px
 	
 	/**
 	 * ${3:$1}
@@ -268,36 +274,65 @@ snippet comp
 	 * 
 	 */
 	function ${1:Elem} (props) {
+		const {children, className, ...rest} = props
 		return(
-			<Base {...props}/>
+			<Styled${6:$1} className={className} {...rest}>{children}</Styled${7:$1}>
 		)
 	}
 	${2: $1}.defaultProps = {
-	
+		children: undefined,
+		className: '',
 	}
 	$2.propTypes = {
-	
+		children: PropTypes.node,
+		className: PropTypes.string
 	}
 	
 	export default $1
 snippet comps
+	import React from 'react'
+	import PropTypes from 'prop-types'
+
+	import Wrapper from '~components/Wrapper'
+	
+	/**
+	 * ${3:$1}
+	 * @component
+	 * 
+	 */
+	function ${1:Elem} (props) {
+		const {children, ...rest} = props
+		return(
+			<Wrapper {...rest} customStyle={{
+				display: 'flex',
+			}}>
+				{children}
+			</Wrapper>
+		)
+	}
+	${2: $1}.defaultProps = {
+		children: undefined	
+	}
+	$2.propTypes = {
+		children: PropTypes.node
+	}
+	
+	export default $1
+snippet style
 	import styled from 'styled-components';
-	import { withTheme } from 'contexts/ThemeContext';
+	import Wrapper from '~components/Wrapper';
 	
 	/**
 	 * $1
 	 * @component 
 	 *
 	*/
-	const ${1:elem} = styled.div ${2:TTT}
-	  display: grid;
-	  grid-template-columns: 1fr 5fr;
-	  min-height: 100vh;
-	  min-width: 100vw;
-	  color: ${({themeColors}) => themeColors.primary};
+	const ${1:elem} = styled(Wrapper)${2:TTT}
+	  display: flex;
+	  flex-direction: column;
 	${3:$2} ;
 	
-	export default withTheme($1);
+	export default $1;
 snippet context
 	import React from 'react';
 
@@ -330,15 +365,65 @@ snippet context
 	};
 	export default $1Provider;
 snippet test 
-	import React from 'react';
-	import { shallow } from 'enzyme';
+	import React from 'react'
+	import { shallow } from 'enzyme'
+	import Contexts from '~contexts'
+	import ${1:Component} from './index'
 
-	import ${1:Component} from './index';
+	const shallowWrapper = shallow(
+	  <Contexts>
+		<$1  />
+	  </Contexts>,
+	)
 
-	const wrapper = shallow(<$1 />);
+	const mockSetState = jest.fn()
+
+	jest.mock('react', () => ({
+	  ...jest.requireActual('react'),
+	  useState: (initial) => [initial, mockSetState],
+	  useEffect: jest.fn(),
+	}))
 
 	describe('render', () => {
-		it('$1 must be rendered', () => {
-			expect(wrapper).toBeDefined();
-		});
-	});
+	  const wrapper = shallowWrapper.find($1)
+	  it('$1 must be rendered', () => {
+		expect(wrapper).toBeDefined()
+	  })
+	})
+snippet container
+	import React from 'react'
+	import { useTranslation } from 'react-i18next'
+	import Wrapper from '~components/Wrapper'
+	
+	
+	/**
+	 * ${2:$1}Container
+	 * @container
+	 * 
+	 */
+	function ${1:Component}Container () {
+		const {t} = useTranslation()
+		return(
+			<Wrapper>
+				content
+			</Wrapper>
+		)
+	}
+	
+	export default $1Container
+snippet cte
+	import constants from '~utils/constants'
+	
+	const {${1:PATHS}} = constants
+snippet ppt
+	import PropTypes from 'prop-types'
+snippet Link
+	<Link to={${2:#}}>${1:link}</Link>
+snippet Btn
+	<Button className="">${1:Btm}</Button>
+snippet Wrapper
+	<Wrapper className="">${1:Txt}</Wrapper>
+snippet Input
+	<Input className="">${1:Txt}</Input>
+snippet Inputf
+	<InputField className="">${1:Txt}</InputField>

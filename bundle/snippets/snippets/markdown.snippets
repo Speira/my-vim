@@ -85,3 +85,18 @@ snippet pullquote
 	{% pullquote %}
 	${1:text} {" ${2:quote} "} ${0:text}
 	{% endpullquote %}
+snippet styled
+	xxx js static
+	import ${1:Component} from '~components/$1'
+
+	function Display$1(props) {
+	  return <$1>text</$1>
+	}
+	xxx
+
+	Simple $1 example:
+
+	xxx js
+	<$1 status="info">Hello world</$1>
+	xxx
+
