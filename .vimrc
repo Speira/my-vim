@@ -131,5 +131,3 @@ function! s:CloseIfOnlyNerdTreeLeft()
 		endif
 	endif
 endfunction
-
-source ~/.Sublivim/config_perso
